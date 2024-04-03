@@ -98,7 +98,7 @@ const Login = () => {
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Don’t have an account yet?
                                 <Link
-                                    to="/signup"
+                                    to="/phone"
                                     className="font-medium text-red-500 hover:underline dark:text-primary-500 ml-1">
                                     Sign up</Link>
                             </p>

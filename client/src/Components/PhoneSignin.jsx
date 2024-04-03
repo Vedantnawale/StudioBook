@@ -5,6 +5,7 @@ import { Button } from '@mui/material'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 import { auth } from '../firebase/setup'
 import { toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const PhoneSignin = () => {
 
@@ -13,6 +14,7 @@ const PhoneSignin = () => {
     const [otp, setOtp] = useState(["", "", "", "", "", ""]) // Initialize with empty array for each digit
     const [verifyingCaptcha, setVerifyingCaptcha] = useState(false)
     const inputRefs = useRef([])
+    const navigate = useNavigate()
 
     const sendOtp = async () => {
 
@@ -46,6 +48,7 @@ const PhoneSignin = () => {
         try {
             await confirmation.confirm(enteredOtp)
             toast.success("User logged in successfully")
+            navigate("/signup")
         } catch (error) {
             console.log(error);
             toast.error("Invalid OTP")
