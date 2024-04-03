@@ -9,6 +9,7 @@ import RequireAuth from './Components/Auth/RequireAuth'
 import Denied from './Pages/Denied'
 import EditProfile from './Pages/User/EditProfile'
 import Profile from './Pages/User/Profile'
+import PhoneSignin from './Components/PhoneSignin'
 
 function App() {
 
@@ -18,6 +19,9 @@ function App() {
         <Route path="/" element={<Homepage />}></Route>
         <Route path="*" element={<NotFound />}></Route>
         <Route path="/denied" element={<Denied />}></Route>
+
+
+        <Route path="/phone" element={<PhoneSignin />}></Route>
 
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>

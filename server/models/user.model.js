@@ -43,11 +43,11 @@ const userSchema = new Schema({
         default: 'USER'
     },
 
-    // phoneNumber: {
-    //     type: Number,
-    //     require,
-    //     unique: true,
-    // },
+    phoneNumber: {
+        type: Number,
+        required: [true, 'Moblie Number is required'],
+        unique: true,
+    },
 
 
     forgotPasswordToken: String,

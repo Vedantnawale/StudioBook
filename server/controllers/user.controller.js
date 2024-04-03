@@ -12,9 +12,9 @@ const cookieOptions = {
 }
 
 const register = async (req, res, next) => {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, phoneNumber } = req.body;
 
-    if (!fullName || !email || !password) {
+    if (!fullName || !email || !password || !phoneNumber) {
         return next(new AppError('All fields are required', 400)); // isko capture karo or aage bhej do
     }
 
@@ -28,6 +28,7 @@ const register = async (req, res, next) => {
         fullName,
         email,
         password,
+        phoneNumber,
         avatar: {
             public_id: email,
             secure_url: 'http://www.example.com/' // dummy url 
