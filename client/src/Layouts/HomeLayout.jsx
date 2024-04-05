@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Footer from '../Pages/Footer';
 import { logout } from '../Redux/Slices/AuthSlice';
 
-const Navbar = () => {
+export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -27,7 +27,6 @@ const Navbar = () => {
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
                         <Link to="/" className="flex items-center space-x-2 text-white font-bold">
-                            {/* <img src="/logo.png" alt="Logo" className={`h-8 w-8 ${isOpen ? 'hidden' : ''}`} /> */}
                             <span className={isOpen ? 'hidden' : ''}>STUDIOBOOK</span>
                         </Link>
                     </div>
@@ -40,9 +39,10 @@ const Navbar = () => {
                         {isLoggedIn ? (
                             <>
                                 <Link to="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                                {role === 'ADMIN' && <Link to="/studio/create" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Create Card</Link>}
                                 {role === 'ADMIN' && <Link to="/admin/dashboard" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</Link>}
                                 <Link to="/aboutus" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">About Us</Link>
-                                {role === "USER" && <Link to="/user/explore" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Explore</Link>}
+                                {role === "USER" && <Link to="/studios" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Explore</Link>}
                                 <Link to="/user/profile" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Profile</Link>
                                 <button onClick={handleLogout} className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Logout</button>
                             </>
@@ -62,6 +62,7 @@ const Navbar = () => {
                     {isLoggedIn ? (
                         <>
                             <Link to="/" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Home</Link>
+                            {role === 'ADMIN' && <Link to="/admin/dashboard" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Create Card</Link>}
                             {role === 'ADMIN' && <Link to="/admin/dashboard" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Admin Dashboard</Link>}
                             {role === "USER" && <Link to="/user/explore" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Explore</Link>}
                             <Link to="/user/profile" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Profile</Link>

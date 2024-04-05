@@ -10,6 +10,9 @@ import Denied from './Pages/Denied'
 import EditProfile from './Pages/User/EditProfile'
 import Profile from './Pages/User/Profile'
 import PhoneSignin from './Components/PhoneSignin'
+import CreateStudio from './Pages/Studio/CreateStudio'
+import StudioDescription from './Pages/Studio/StudioDescription'
+import StudioList from './Pages/Studio/StudioList'
 
 function App() {
 
@@ -27,6 +30,16 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
 
         <Route path='/aboutus' element={<AboutUs />}></Route>
+
+        <Route element={<RequireAuth allowedRoles={["ADMIN", "USER"]} />}>
+        <Route path="/studio/description" element={<StudioDescription />}></Route>
+        <Route path="/studios" element={<StudioList />}></Route>
+        </Route>
+
+
+        <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+          <Route path="/studio/create" element={<CreateStudio />}></Route>
+        </Route>
 
         <Route element={<RequireAuth allowedRoles={["ADMIN", "USER"]} />}>
           <Route path='/user/profile' element={<Profile />}></Route>
