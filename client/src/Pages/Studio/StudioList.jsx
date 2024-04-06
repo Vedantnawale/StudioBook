@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllStudios } from "../../Redux/Slices/StudioSlice";
 import HomeLayout from "../../Layouts/HomeLayout";
 import StudioCard from "../../Components/Card/StudioCard";
+import data from "../../Components/city.json";
 
 function StudioList() {
     const dispatch = useDispatch();
@@ -10,6 +11,8 @@ function StudioList() {
     const [location, setLocation] = useState('');
     const [category, setCategory] = useState('');
     const [customLocation, setCustomLocation] = useState('');
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [filteredCities, setFilteredCities] = useState([]);
 
     useEffect(() => {
         dispatch(getAllStudios());
@@ -38,7 +41,11 @@ function StudioList() {
     };
 
     const handleCustomLocationChange = (e) => {
-        setCustomLocation(e.target.value);
+        const value = e.target.value;
+        setCustomLocation(value);
+        const filtered = data.filter(city => city.city.toLowerCase().startsWith(value.toLowerCase()));
+        setFilteredCities(filtered);
+        setShowDropdown(true);
     };
 
     return (
@@ -55,60 +62,64 @@ function StudioList() {
                 <div className="min-h-[100vh] w-full pt-12 flex justify-start items-start text-white">
                     <div className="text-black text-sm w-1/5 mt-4 mx-3 fixed left-0 top-14">
                         <div className="filter-section">
-                            <div className="border border-gray-500 p-2 shadow-2xl rounded-lg mb-3">
+                            <div className="border border-gray-500 p-2 shadow-2xl rounded-lg mb-3 relative">
                                 <p className="text-start text-gray-500 font-semibold mb-1">Location</p>
                                 <div>
                                     <label className="block mb-2">
                                         <input type="radio" name="location" value="Mumbai" checked={location === 'Mumbai'} onChange={handleLocationChange} />
                                         Mumbai
                                     </label>
-                                </div>
-                                <div>
                                     <label className="block mb-2">
                                         <input type="radio" name="location" value="Bengaluru" checked={location === 'Bengaluru'} onChange={handleLocationChange} />
                                         Bengaluru
                                     </label>
-                                </div>
-                                <div>
                                     <label className="block mb-2">
                                         <input type="radio" name="location" value="Delhi" checked={location === 'Delhi'} onChange={handleLocationChange} />
                                         Delhi
                                     </label>
-                                </div>
-                                <div>
-                                    <label className="block mb-2">
-                                        <input type="radio" name="location" value="Kolkata" checked={location === 'Kolkata'} onChange={handleLocationChange} />
-                                        Kolkata
-                                    </label>
-                                </div>
-                                <div>
                                     <label className="block mb-2">
                                         <input type="radio" name="location" value="Chennai" checked={location === 'Chennai'} onChange={handleLocationChange} />
                                         Chennai
                                     </label>
-                                </div>
-                                <div>
                                     <label className="block mb-2">
-                                        <input type="radio" name="location" value="Hyderabad" checked={location === 'Hyderabad'} onChange={handleLocationChange} />
-                                        Hyderabad
+                                        <input type="radio" name="location" value="Ahmedabad" checked={location === 'Ahmedabad'} onChange={handleLocationChange} />
+                                        Ahmedabad
                                     </label>
-                                </div>
-                                <div>
+                                    <label className="block mb-2">
+                                        <input type="radio" name="location" value="Nagpur" checked={location === 'Nagpur'} onChange={handleLocationChange} />
+                                        Nagpur
+                                    </label>
                                     <label className="block mb-2">
                                         <input type="radio" name="location" value="Pune" checked={location === 'Pune'} onChange={handleLocationChange} />
                                         Pune
                                     </label>
                                 </div>
-                                <div>
-                                    <label className="block mb-2">
-                                        <input type="radio" name="location" value="Ahmedabad" checked={location === 'Ahmedabad'} onChange={handleLocationChange} />
-                                        Ahmedabad
-                                    </label>
-                                </div>
-                                {/* Add more cities as needed */}
                                 <div className="mt-3">
-                                    {/* <label className="block text-gray-500 font-semibold">Custom Location:</label> */}
-                                    <input type="text" value={customLocation} onChange={handleCustomLocationChange} className="border-none bg-white text-gray-400 rounded-sm py-3 px-2 w-full" placeholder="Search City" />
+                                    <input
+                                        type="text"
+                                        value={customLocation}
+                                        onChange={handleCustomLocationChange}
+                                        className="border-none bg-white text-gray-400 rounded-sm py-3 px-2 w-full"
+                                        placeholder="Search City"
+                                    />
+                                    {showDropdown && (
+                                        <div className="absolute top-full w-full bg-white shadow-md rounded-md z-10">
+                                            {filteredCities
+                                            .slice(0, 2)
+                                            .map((item, index) => (
+                                                <div
+                                                    onClick={() => {
+                                                        setCustomLocation(`${item.city}, ${item.state}`);
+                                                        setShowDropdown(false);
+                                                    }}
+                                                    className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                                    key={index}
+                                                >
+                                                    {item.city}, {item.state}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className="border border-gray-500 shadow-2xl p-2 rounded-lg mb-3">
@@ -118,44 +129,27 @@ function StudioList() {
                                         <input type="radio" name="category" value="Wedding" checked={category === 'Wedding'} onChange={handleCategoryChange} />
                                         Wedding
                                     </label>
-                                </div>
-                                <div>
-                                    <label className="block mb-2">
-                                        <input type="radio" name="category" value="Babies & Kids" checked={category === 'Babies & Kids'} onChange={handleCategoryChange} />
-                                        Babies & Kids
-                                    </label>
-                                </div>
-                                <div>
-                                    <label className="block mb-2">
-                                        <input type="radio" name="category" value="Special Occasion" checked={category === 'Special Occasion'} onChange={handleCategoryChange} />
-                                        Special Occasion
-                                    </label>
-                                </div>
-                                <div>
                                     <label className="block mb-2">
                                         <input type="radio" name="category" value="Commercial" checked={category === 'Commercial'} onChange={handleCategoryChange} />
                                         Commercial
                                     </label>
-                                </div>
-                                <div>
                                     <label className="block mb-2">
-                                        <input type="radio" name="category" value="Corporate Events" checked={category === 'Corporate Events'} onChange={handleCategoryChange} />
-                                        Corporate Events
+                                        <input type="radio" name="category" value="Baby & Kids" checked={category === 'Baby & Kids'} onChange={handleCategoryChange} />
+                                        Baby & Kids
                                     </label>
-                                </div>
-                                <div>
+                                    <label className="block mb-2">
+                                        <input type="radio" name="category" value="Occassion" checked={category === 'Occassion'} onChange={handleCategoryChange} />
+                                        Occassion
+                                    </label>
+                                    <label className="block mb-2">
+                                        <input type="radio" name="category" value="Nature" checked={category === 'Nature'} onChange={handleCategoryChange} />
+                                        Nature
+                                    </label>
                                     <label className="block mb-2">
                                         <input type="radio" name="category" value="Fashion & Portfolio" checked={category === 'Fashion & Portfolio'} onChange={handleCategoryChange} />
                                         Fashion & Portfolio
                                     </label>
                                 </div>
-                                <div>
-                                    <label className="block mb-2">
-                                        <input type="radio" name="category" value="Nature" checked={category === 'Nature'} onChange={handleCategoryChange} />
-                                        Nature
-                                    </label>
-                                </div>
-                                {/* Add more categories as needed */}
                             </div>
                         </div>
                     </div>

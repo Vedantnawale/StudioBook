@@ -5,10 +5,13 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import HomeLayout from "../../Layouts/HomeLayout";
 import { createNewStudio } from "../../Redux/Slices/StudioSlice";
+import data from "../../Components/city.json";
 
 function CreateStudio() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [filteredData, setFilteredData] = useState([]);
 
     const [userInput, setUserInput] = useState({
         title: "",
@@ -47,6 +50,13 @@ function CreateStudio() {
             ...prevState,
             [name]: value
         }));
+
+        // Toggle showDropdown based on the input name
+        setShowDropdown(name === 'location' && value.trim().length > 0);
+
+        // Filter the data based on the input text
+        const filtered = data.filter(city => city.city.toLowerCase().startsWith(value.toLowerCase()));
+        setFilteredData(filtered);
     }
 
     async function onFormSubmit(e) {
@@ -108,23 +118,7 @@ function CreateStudio() {
                         </div>
 
                         <div className="flex flex-col gap-1">
-                            <div className="flex flex-col gap-1">
-                                <label className="text-lg font-semibold" htmlFor="createdBy">
-                                    Studio Owner
-                                </label>
-                                <input
-                                    required
-                                    type="text"
-                                    name="createdBy"
-                                    id="createdBy"
-                                    placeholder="Enter Studio instructor"
-                                    className="bg-transparent px-2 py-1 border"
-                                    value={userInput.createdBy}
-                                    onChange={handleUserInput}
-                                />
-                            </div>
-                            
-                            <div className="flex flex-col gap-1">
+                            <div className="flex flex-col gap-1 relative">
                                 <label className="text-lg font-semibold" htmlFor="location">
                                     Location
                                 </label>
@@ -138,6 +132,27 @@ function CreateStudio() {
                                     value={userInput.location}
                                     onChange={handleUserInput}
                                 />
+                                {showDropdown && (
+                                    <div className="text-black absolute w-full top-[calc(100%+10px)] bg-white shadow-md rounded-md z-10">
+                                        {filteredData
+                                        .slice(0,2)
+                                        .map((item, index) => (
+                                            <div
+                                                onClick={() => {
+                                                    setUserInput(prevState => ({
+                                                        ...prevState,
+                                                        location: `${item.city}, ${item.state}`
+                                                    }));
+                                                    setShowDropdown(false);
+                                                }}
+                                                className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                                key={index}
+                                            >
+                                                {item.city}, {item.state}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="flex flex-col gap-1">
@@ -210,7 +225,7 @@ function CreateStudio() {
                 </form>
             </div>
         </HomeLayout>
-    )
+    );
 }
 
 export default CreateStudio;
