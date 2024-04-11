@@ -115,6 +115,21 @@ function CreateStudio() {
                                     onChange={handleUserInput}
                                 />
                             </div>
+                            <div className="flex flex-col gap-1 mt-4">
+                                <label className="text-lg font-semibold" htmlFor="createdBy">
+                                    Studio Owner
+                                </label>
+                                <input
+                                    required
+                                    type="text"
+                                    name="createdBy"
+                                    id="createdBy"
+                                    placeholder="Enter Studio Owner Name"
+                                    className="bg-transparent px-2 py-1 border"
+                                    value={userInput.createdBy}
+                                    onChange={handleUserInput}
+                                />
+                            </div>
                         </div>
 
                         <div className="flex flex-col gap-1">
