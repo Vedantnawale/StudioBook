@@ -28,9 +28,13 @@ export const createNewStudio = createAsyncThunk("/studio/create", async (data) =
         formData.append("title", data?.title);
         formData.append("location", data?.location);
         formData.append("price", data?.price);
-        formData.append("specialities", data?.specialities);
+        formData.append("description", data?.description);
+        formData.append("mobileNumber", data?.mobileNumber);
         formData.append("createdBy", data?.createdBy);
         formData.append("thumbnail", data?.thumbnail);
+        data.services.forEach((service) => formData.append("services", service));
+        data.specialities.forEach((speciality) => formData.append("specialities", speciality));
+        data.languages.forEach((languages) => formData.append("languages", languages));
         // formData.append("thumbnail", data?.images);
         data.images.forEach((image) => formData.append("images", image));
 

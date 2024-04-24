@@ -39,7 +39,7 @@ export const Navbar = () => {
                         {isLoggedIn ? (
                             <>
                                 <Link to="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                                {role === 'ADMIN' && <Link to="/studio/create" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Create Card</Link>}
+                                {role === 'ADMIN' && <Link to="/studio/create" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Create Studio</Link>}
                                 {role === 'ADMIN' && <Link to="/admin/dashboard" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</Link>}
                                 <Link to="/aboutus" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">About Us</Link>
                                 {role === "USER" && <Link to="/studios" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Explore</Link>}
@@ -62,7 +62,7 @@ export const Navbar = () => {
                     {isLoggedIn ? (
                         <>
                             <Link to="/" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Home</Link>
-                            {role === 'ADMIN' && <Link to="/admin/dashboard" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Create Card</Link>}
+                            {role === 'ADMIN' && <Link to="/admin/dashboard" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Create Studio</Link>}
                             {role === 'ADMIN' && <Link to="/admin/dashboard" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Admin Dashboard</Link>}
                             {role === "USER" && <Link to="/user/explore" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Explore</Link>}
                             <Link to="/user/profile" className="text-white block hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Profile</Link>

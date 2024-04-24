@@ -19,9 +19,9 @@ const getAllStudios = async function (req, res, next) {
 
 const createStudio = async (req, res, next) => {
     try {
-        let { title, location, price, createdBy, specialities } = req.body;
+        let { title, location, price, createdBy, description,specialities, services, languages, mobileNumber} = req.body;
 
-        if (!title || !location || !price || !createdBy) {
+        if (!title || !location || !price || !createdBy ||!mobileNumber) {
             return next(new AppError('All fields are required', 400))
         }
 
@@ -30,7 +30,10 @@ const createStudio = async (req, res, next) => {
             location,
             price,
             createdBy,
+            description,
             specialities,
+            services,
+            languages,
             images: [],
             thumbnail: {
                 public_id: 'Dummy',

@@ -13,6 +13,7 @@ import PhoneSignin from './Components/PhoneSignin'
 import CreateStudio from './Pages/Studio/CreateStudio'
 import StudioDescription from './Pages/Studio/StudioDescription'
 import StudioList from './Pages/Studio/StudioList'
+import ClientDescription from './Pages/Studio/ClientDescription'
 
 function App() {
 
@@ -32,7 +33,8 @@ function App() {
         <Route path='/aboutus' element={<AboutUs />}></Route>
 
         <Route element={<RequireAuth allowedRoles={["ADMIN", "USER"]} />}>
-        <Route path="/studio/description" element={<StudioDescription />}></Route>
+        {/* <Route path="/studio/description" element={<StudioDescription />}></Route> */}
+        <Route path="/studio/description" element={<ClientDescription />}></Route>
         <Route path="/studios" element={<StudioList />}></Route>
         </Route>
 

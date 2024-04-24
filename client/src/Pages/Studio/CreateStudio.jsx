@@ -6,19 +6,54 @@ import { Link, useNavigate } from "react-router-dom";
 import HomeLayout from "../../Layouts/HomeLayout";
 import { createNewStudio } from "../../Redux/Slices/StudioSlice";
 import data from "../../Components/city.json";
+import ReactSelect from "react-select";
 
 function CreateStudio() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showDropdown, setShowDropdown] = useState(false);
     const [filteredData, setFilteredData] = useState([]);
+    const options = [
+        { value: "Wedding", label: "Wedding" },
+        { value: "Babies & Kids", label: "Babies & Kids" },
+        { value: "Special Occasion", label: "Special Occasion" },
+        { value: "Commercial", label: "Commercial" },
+        { value: "Corporate Events", label: "Corporate Events" },
+        { value: "Fashion & Portfolio", label: "Fashion & Portfolio" },
+        { value: "Nature", label: "Nature" },
+        { value: "Travel", label: "Travel" },
+    ];
+
+    const services = [
+        { value: "Documentary", label: "Documentary" },
+        { value: "Photobook", label: "Photobook" },
+        { value: "Cinematography", label: "Cinematography" },
+        { value: "Shortfilms", label: "Shortfilms" },
+        { value: "Coffee Table Book", label: "Coffee Table Book" },
+        { value: "Cheque", label: "Cheque" },
+        { value: "Bank Transfer", label: "Bank Transfer" },
+    ];
+
+    const languages = [
+        { value: "English", label: "English" },
+        { value: "Marathi", label: "Marathi" },
+        { value: "Gujarati", label: "Gujarati" },
+        { value: "Hindi", label: "Hindi" },
+        { value: "Bengali", label: "Bengali" },
+        { value: "Tamil", label: "Tamil" },
+        { value: "Telugu", label: "Telugu" },
+    ];
 
     const [userInput, setUserInput] = useState({
         title: "",
         price: "",
         location: "",
-        specialities: "",
+        description: "",
+        specialities: [],
+        services: [],
+        languages: [],
         createdBy: "",
+        mobileNumber: "",
         images: Array.from({ length: 4 }).fill(null),
         previewImages: Array.from({ length: 5 }).fill(null),
     });
@@ -59,6 +94,30 @@ function CreateStudio() {
         setFilteredData(filtered);
     }
 
+    function handleSpecialitiesChange(selectedOptions) {
+        const specialities = selectedOptions.map(option => option.value);
+        setUserInput(prevState => ({
+            ...prevState,
+            specialities: specialities,
+        }));
+    }
+
+    function handleServicesChange(selectedOptions) {
+        const services = selectedOptions.map(option => option.value);
+        setUserInput(prevState => ({
+            ...prevState,
+            services: services,
+        }));
+    }
+
+    function handleLanguageChange(selectedOptions) {
+        const languages = selectedOptions.map(option => option.value);
+        setUserInput(prevState => ({
+            ...prevState,
+            languages: languages,
+        }));
+    }
+
     async function onFormSubmit(e) {
         e.preventDefault();
 
@@ -72,9 +131,13 @@ function CreateStudio() {
             setUserInput({
                 title: "",
                 price: "",
+                specialities: [],
+                services: [],
+                languages: [],
                 location: "",
-                specialities: "",
+                description: "",
                 createdBy: "",
+                mobileNumber: "",
                 images: Array.from({ length: 4 }).fill(null),
                 previewImages: Array.from({ length: 5 }).fill(null),
             });
@@ -84,11 +147,11 @@ function CreateStudio() {
 
     return (
         <HomeLayout>
-            <div className="flex items-center justify-center h-[100vh]">
+            <div className="flex items-center justify-center w-full">
                 <form
                     encType="multipart/form-data"
                     onSubmit={onFormSubmit}
-                    className="flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-[700px] my-10 shadow-[0_0_10px_black] relative"
+                    className="flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-full my-10 shadow-[0_0_10px_black] relative"
                 >
                     <Link to="/" className="absolute top-8 text-2xl text-accent cursor-pointer">
                         <AiOutlineArrowLeft />
@@ -115,6 +178,7 @@ function CreateStudio() {
                                     onChange={handleUserInput}
                                 />
                             </div>
+
                             <div className="flex flex-col gap-1 mt-4">
                                 <label className="text-lg font-semibold" htmlFor="createdBy">
                                     Studio Owner
@@ -128,6 +192,49 @@ function CreateStudio() {
                                     className="bg-transparent px-2 py-1 border"
                                     value={userInput.createdBy}
                                     onChange={handleUserInput}
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-1 mt-4">
+                                <label className="text-lg font-semibold" htmlFor="mobileNumber">
+                                    Mobile Number
+                                </label>
+                                <input
+                                    required
+                                    type="phone"
+                                    name="mobileNumber"
+                                    id="mobileNumber"
+                                    placeholder="Enter Mobile Number"
+                                    className="bg-transparent px-2 py-1 border"
+                                    value={userInput.mobileNumber}
+                                    onChange={handleUserInput}
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-1 mt-4">
+                                <label className="text-lg font-semibold" htmlFor="createdBy">
+                                    Specialities
+                                </label>
+                                <ReactSelect
+                                    required
+                                    name="specialities"
+                                    options={options}
+                                    placeholder="Enter Specialities"
+                                    className="text-gray-600 border"
+                                    value={options.filter(option => userInput.specialities.includes(option.value))}
+                                    onChange={handleSpecialitiesChange}
+                                    isMulti={true}
+                                    styles={{
+                                        control: (styles) => ({
+                                            ...styles,
+                                            backgroundColor: 'transparent',
+                                            border: 'none',
+                                        }),
+                                        placeholder: (styles) => ({
+                                            ...styles,
+                                            color: 'gray'
+                                        }),
+                                    }}
                                 />
                             </div>
                         </div>
@@ -150,24 +257,78 @@ function CreateStudio() {
                                 {showDropdown && (
                                     <div className="text-black absolute w-full top-[calc(100%+10px)] bg-white shadow-md rounded-md z-10">
                                         {filteredData
-                                        .slice(0,2)
-                                        .map((item, index) => (
-                                            <div
-                                                onClick={() => {
-                                                    setUserInput(prevState => ({
-                                                        ...prevState,
-                                                        location: `${item.city}, ${item.state}`
-                                                    }));
-                                                    setShowDropdown(false);
-                                                }}
-                                                className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                                                key={index}
-                                            >
-                                                {item.city}, {item.state}
-                                            </div>
-                                        ))}
+                                            .slice(0, 2)
+                                            .map((item, index) => (
+                                                <div
+                                                    onClick={() => {
+                                                        setUserInput(prevState => ({
+                                                            ...prevState,
+                                                            location: `${item.city}, ${item.state}`
+                                                        }));
+                                                        setShowDropdown(false);
+                                                    }}
+                                                    className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                                    key={index}
+                                                >
+                                                    {item.city}, {item.state}
+                                                </div>
+                                            ))}
                                     </div>
                                 )}
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label className="text-lg font-semibold" htmlFor="price">
+                                    Services
+                                </label>
+                                <ReactSelect
+                                    required
+                                    name="services"
+                                    options={services}
+                                    placeholder="Enter Services"
+                                    className="text-gray-600  border"
+                                    value={services.filter(service => userInput.services.includes(service.value))}
+                                    onChange={handleServicesChange}
+                                    isMulti={true}
+                                    styles={{
+                                        control: (styles) => ({
+                                            ...styles,
+                                            backgroundColor: 'transparent',
+                                            border: 'none',
+                                        }),
+                                        placeholder: (styles) => ({
+                                            ...styles,
+                                            color: 'gray',
+                                        }),
+                                    }}
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label className="text-lg font-semibold" htmlFor="languageKnown">
+                                    Language Known
+                                </label>
+                                <ReactSelect
+                                    required
+                                    name="languageKnown"
+                                    options={languages}
+                                    placeholder="Enter Languages that you understand"
+                                    className="text-gray-600 border"
+                                    value={languages.filter(language => userInput.languages.includes(language.value))}
+                                    onChange={handleLanguageChange}
+                                    isMulti={true}
+                                    styles={{
+                                        control: (styles) => ({
+                                            ...styles,
+                                            backgroundColor: 'transparent',
+                                            border: 'none',
+                                        }),
+                                        placeholder: (styles) => ({
+                                            ...styles,
+                                            color: 'gray',
+                                        }),
+                                    }}
+                                />
                             </div>
 
                             <div className="flex flex-col gap-1">
@@ -185,18 +346,19 @@ function CreateStudio() {
                                     onChange={handleUserInput}
                                 />
                             </div>
+
                             <div className="flex flex-col gap-1">
-                                <label className="text-lg font-semibold" htmlFor="specialities">
-                                    Specialities
+                                <label className="text-lg font-semibold" htmlFor="description">
+                                    Description
                                 </label>
                                 <textarea
                                     required
                                     type="text"
-                                    name="specialities"
-                                    id="specialities"
-                                    placeholder="Enter Specialities"
+                                    name="description"
+                                    id="description"
+                                    placeholder="Description"
                                     className="bg-transparent px-2 py-1 h-24 overflow-y-scroll resize-none border"
-                                    value={userInput.specialities}
+                                    value={userInput.description}
                                     onChange={handleUserInput}
                                 />
                             </div>

@@ -66,31 +66,31 @@ function StudioList() {
                                 <p className="text-start text-gray-500 font-semibold mb-1">Location</p>
                                 <div>
                                     <label className="block mb-2">
-                                        <input type="radio" name="location" value="Mumbai" checked={location === 'Mumbai'} onChange={handleLocationChange} />
+                                        <input type="radio" name="location" value="Mumbai, Maharashtra" checked={location === 'Mumbai, Maharashtra'} onChange={handleLocationChange} />
                                         Mumbai
                                     </label>
                                     <label className="block mb-2">
-                                        <input type="radio" name="location" value="Bengaluru" checked={location === 'Bengaluru'} onChange={handleLocationChange} />
+                                        <input type="radio" name="location" value="Bangalore, Karnataka" checked={location === 'Bangalore, Karnataka'} onChange={handleLocationChange} />
                                         Bengaluru
                                     </label>
                                     <label className="block mb-2">
-                                        <input type="radio" name="location" value="Delhi" checked={location === 'Delhi'} onChange={handleLocationChange} />
+                                        <input type="radio" name="location" value="Delhi, Delhi" checked={location === 'Delhi, Delhi'} onChange={handleLocationChange} />
                                         Delhi
                                     </label>
                                     <label className="block mb-2">
-                                        <input type="radio" name="location" value="Chennai" checked={location === 'Chennai'} onChange={handleLocationChange} />
+                                        <input type="radio" name="location" value="Chennai, Tamil Nadu" checked={location === 'Chennai, Tamil Nadu'} onChange={handleLocationChange} />
                                         Chennai
                                     </label>
                                     <label className="block mb-2">
-                                        <input type="radio" name="location" value="Ahmedabad" checked={location === 'Ahmedabad'} onChange={handleLocationChange} />
+                                        <input type="radio" name="location" value="Ahmedabad, Gujarat" checked={location === 'Ahmedabad, Gujarat'} onChange={handleLocationChange} />
                                         Ahmedabad
                                     </label>
                                     <label className="block mb-2">
-                                        <input type="radio" name="location" value="Nagpur" checked={location === 'Nagpur'} onChange={handleLocationChange} />
+                                        <input type="radio" name="location" value="Nagpur, Maharashtra" checked={location === 'Nagpur, Maharashtra'} onChange={handleLocationChange} />
                                         Nagpur
                                     </label>
                                     <label className="block mb-2">
-                                        <input type="radio" name="location" value="Pune" checked={location === 'Pune'} onChange={handleLocationChange} />
+                                        <input type="radio" name="location" value="Pune, Maharashtra" checked={location === 'Pune, Maharashtra'} onChange={handleLocationChange} />
                                         Pune
                                     </label>
                                 </div>

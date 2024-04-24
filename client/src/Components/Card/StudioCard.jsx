@@ -42,10 +42,13 @@ function StudioCard({ data }) {
                     </div>
                     <div className="flex items-center space-x-1">
                         <FiUsers className="text-red-500" />
-                        <p className="font-semibold text-black">{data?.specialities}</p>
+                        {data?.specialities?.slice(0, 3).map((speciality, index) => (
+                            <p key={index} className="font-semibold text-black">
+                                {speciality},
+                            </p>
+                        ))}
                     </div>
                 </div>
-
             </div>
             <div className="flex gap-4">
                 {data?.images?.map((image, index) => (

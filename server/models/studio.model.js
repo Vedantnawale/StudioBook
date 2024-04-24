@@ -27,9 +27,29 @@ const Studioschema = new Schema({
         type: Number,
         required: [true, 'Price is required']
     },
-    specialities: [{
+    description: [{
         type: String,
         required: true
+    }],
+
+    specialities: [{
+        type: String,
+        required: true,
+    }],
+
+    services: [{
+        type: String,
+        required: true,
+    }],
+
+    languages: [{
+        type: String,
+        required: true,
+    }],
+
+    mobileNumber: [{
+        type: Number,
+        required: [true, 'mobiile number is required']
     }],
     images: [
         {
