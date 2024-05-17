@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import HomeLayout from '../../Layouts/HomeLayout';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './client.css';
 import Packages from './Packages';
@@ -10,15 +10,22 @@ import Reviews from './Reviews';
 const ClientDescription = () => {
     const { state } = useLocation();
     const { role, data } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
     const [activeSection, setActiveSection] = useState('about');
 
     const renderActionButton = () => {
         const isAdmin = role === 'ADMIN';
         const isActiveSubscription = data?.subscription?.status === 'ACTIVE';
         const buttonText = isAdmin || isActiveSubscription ? 'Edit' : 'Book';
+        
         const handleClick = () => {
-            // Handle edit or book action
+            if (isAdmin) {
+                navigate('/edit');  // Replace '/edit' with the actual route for the edit page
+            } else {
+                navigate('/checkout');  // Replace '/checkout' with the actual route for the checkout page
+            }
         };
+
         return (
             <button
                 className="bg-green-600 text-white text-md rounded-md font-bold px-8 py-2 mt-3 hover:bg-green-500 transition-all ease-in-out duration-300"
@@ -64,37 +71,36 @@ const ClientDescription = () => {
                 </main>
 
                 <div className="Tabs">
-    <button
-        className={activeSection === 'about' ? 'active' : ''}
-        onClick={() => setActiveSection('about')}
-    >
-        About
-    </button>
-    <button
-        className={activeSection === 'albums' ? 'active' : ''}
-        onClick={() => setActiveSection('albums')}
-    >
-        Albums
-    </button>
-    <button
-        className={activeSection === 'packages' ? 'active' : ''}
-        onClick={() => setActiveSection('packages')}
-    >
-        Packages
-    </button>
-    <button
-        className={activeSection === 'reviews' ? 'active' : ''}
-        onClick={() => setActiveSection('reviews')}
-    >
-        Reviews
-    </button>
-</div>
-
+                    <button
+                        className={activeSection === 'about' ? 'active' : ''}
+                        onClick={() => setActiveSection('about')}
+                    >
+                        About
+                    </button>
+                    <button
+                        className={activeSection === 'albums' ? 'active' : ''}
+                        onClick={() => setActiveSection('albums')}
+                    >
+                        Albums
+                    </button>
+                    <button
+                        className={activeSection === 'packages' ? 'active' : ''}
+                        onClick={() => setActiveSection('packages')}
+                    >
+                        Packages
+                    </button>
+                    <button
+                        className={activeSection === 'reviews' ? 'active' : ''}
+                        onClick={() => setActiveSection('reviews')}
+                    >
+                        Reviews
+                    </button>
+                </div>
 
                 <div className="Content">
                     <div className="About" style={{ display: activeSection === 'about' ? 'block' : 'none' }}>
                         <section className="about-section">
-                            <h2 className="mt-2 mb-2 text-xl font-semibold text-white">Overview </h2>
+                            <h2 className="mt-2 mb-2 text-xl font-semibold text-white">Overview</h2>
                             <p>{state?.description}</p>
 
                             <h2 className="mt-2 mb-2 text-xl font-semibold text-white">Services Location</h2>

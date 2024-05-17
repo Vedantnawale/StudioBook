@@ -6,7 +6,8 @@ import morgan from 'morgan';
 import userRoutes from './routes/user.routes.js'
 import errorMiddleware from './middlewares/error.middleware.js';
 import studioRoutes from './routes/studio.routes.js'
-// import paymentRoutes from './routes/payment.routes.js'
+import paymentRoutes from './routes/payment.routes.js'
+import miscRoutes from './routes/miscellaneous.routes.js';
 
 
 config();
@@ -32,7 +33,8 @@ app.use('/ping', function(req, res){
 // routes of 3 modules
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/studios', studioRoutes)
-// app.use('/api/v1/payments', paymentRoutes)
+app.use('/api/v1/payments', paymentRoutes)
+app.use('/api/v1', miscRoutes);
 
 // agar user koi random url dena chahta hai to
 app.all('*', (req, res) => {

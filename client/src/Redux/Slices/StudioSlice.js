@@ -55,6 +55,21 @@ export const createNewStudio = createAsyncThunk("/studio/create", async (data) =
     }
 });
 
+export const deleteStudio = createAsyncThunk("/studio/delete", async () => {
+    try {
+        const response = axiosInstance.delete(`/studios/${id}`);
+        toast.promise(response, {
+            loading: "deleting studio data...",
+            success: "Studio deleted successfully",
+            error: "Failed to delete the studio",
+        });
+
+        return (await response).data;
+    } catch(error) {
+        toast.error(error?.response?.data?.message);
+    }
+});
+
 const studioSlice = createSlice({
     name: "studios",
     initialState,

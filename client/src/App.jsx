@@ -11,9 +11,13 @@ import EditProfile from './Pages/User/EditProfile'
 import Profile from './Pages/User/Profile'
 import PhoneSignin from './Components/PhoneSignin'
 import CreateStudio from './Pages/Studio/CreateStudio'
-import StudioDescription from './Pages/Studio/StudioDescription'
+// import StudioDescription from './Pages/Studio/StudioDescription'
 import StudioList from './Pages/Studio/StudioList'
 import ClientDescription from './Pages/Studio/ClientDescription'
+import Checkout from './Pages/Payment/Checkout';
+import CheckoutSuccess from './Pages/Payment/CheckoutSuccess';
+import CheckoutFailure from './Pages/Payment/CheckoutFailure'
+import AdminDashboard from './Pages/Dashboard/AdminDashboard'
 
 function App() {
 
@@ -41,11 +45,15 @@ function App() {
 
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
           <Route path="/studio/create" element={<CreateStudio />}></Route>
+          <Route path="/admin/dashboard" element={<AdminDashboard />}></Route>
         </Route>
 
         <Route element={<RequireAuth allowedRoles={["ADMIN", "USER"]} />}>
           <Route path='/user/profile' element={<Profile />}></Route>
           <Route path='/user/editprofile' element={<EditProfile />}></Route>
+          <Route path='/checkout' element={<Checkout />} />
+          <Route path='/checkout/success' element={<CheckoutSuccess />} />
+          <Route path='/checkout/fail' element={<CheckoutFailure />} />
         </Route>
       </Routes>
     </>
