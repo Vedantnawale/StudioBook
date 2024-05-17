@@ -28,7 +28,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="/"
+                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
                                     >
                                         Features
                                     </Link>
@@ -36,7 +36,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="/"
+                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
                                     >
                                         Pricing
                                     </Link>
@@ -44,7 +44,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="/"
+                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
                                     >
                                         Affiliate Program
                                     </Link>
@@ -52,7 +52,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="/"
+                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
                                     >
                                         Press Kit
                                     </Link>
@@ -69,7 +69,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="/"
+                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
                                     >
                                         Account
                                     </Link>
@@ -77,7 +77,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="/"
+                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
                                     >
                                         Help
                                     </Link>
@@ -93,7 +93,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="/"
+                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
                                     >
                                         Customer Support
                                     </Link>
@@ -110,7 +110,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="/"
+                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
                                     >
                                         Terms &amp; Conditions
                                     </Link>
@@ -118,7 +118,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="/"
+                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
                                     >
                                         Privacy Policy
                                     </Link>
@@ -126,7 +126,7 @@ function Footer() {
                                 <li>
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="/"
+                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
                                     >
                                         Licensing
                                     </Link>

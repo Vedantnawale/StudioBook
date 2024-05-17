@@ -13,7 +13,6 @@ router.route('/')
     // authorizedRoles('ADMIN'),
     upload.array('images', 4),
     createStudio)
-
 //TODO: agar user ne payment nahi kiya to usko lectures details nahi dikhne chahiye to uske liye middleware 
 router.route('/:id')
 .put(

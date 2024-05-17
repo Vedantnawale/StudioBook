@@ -47,6 +47,21 @@ const Studioschema = new Schema({
         required: true,
     }],
 
+    albums: [{
+        type: String,
+        required: true,
+    }],
+
+    packages: [{
+        type: String,
+        required: true,
+    }],
+
+    packagesOptional: [{
+        type: String,
+        required: true,
+    }],
+
     mobileNumber: [{
         type: Number,
         required: [true, 'mobiile number is required']

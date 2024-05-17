@@ -1,12 +1,33 @@
-import React from 'react';
-import HomeLayout from "../../Layouts/HomeLayout";
+import React, { useState } from 'react';
+import HomeLayout from '../../Layouts/HomeLayout';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import "./client.css";
+import './client.css';
+import Packages from './Packages';
+import Albums from './Albums';
+import Reviews from './Reviews';
 
 const ClientDescription = () => {
     const { state } = useLocation();
     const { role, data } = useSelector((state) => state.auth);
+    const [activeSection, setActiveSection] = useState('about');
+
+    const renderActionButton = () => {
+        const isAdmin = role === 'ADMIN';
+        const isActiveSubscription = data?.subscription?.status === 'ACTIVE';
+        const buttonText = isAdmin || isActiveSubscription ? 'Edit' : 'Book';
+        const handleClick = () => {
+            // Handle edit or book action
+        };
+        return (
+            <button
+                className="bg-green-600 text-white text-md rounded-md font-bold px-8 py-2 mt-3 hover:bg-green-500 transition-all ease-in-out duration-300"
+                onClick={handleClick}
+            >
+                {buttonText}
+            </button>
+        );
+    };
 
     return (
         <HomeLayout>
@@ -22,14 +43,13 @@ const ClientDescription = () => {
                                 />
                             )}
                             <div className="pt-20">
-                                <h2 className='text-3xl font-bold'>{state?.title}</h2>
-                                <p className='font-semibold'>{state?.location}</p>
+                                <h2 className="text-3xl font-bold">{state?.title}</h2>
+                                <p className="font-semibold">{state?.location}</p>
                                 <div className="contact-buttons">
                                     <button>Call Phone</button>
                                     <button>WhatsApp</button>
                                 </div>
                             </div>
-
                         </div>
                     </section>
                     <section className="services-button">
@@ -44,49 +64,71 @@ const ClientDescription = () => {
                 </main>
 
                 <div className="Tabs">
-                    <button>About</button>
-                    <button>Albums</button>
-                    <button>Packages</button>
-                    <button>Reviews</button>
-                </div>
-                <div className="Content">
-                    <div className="About">
-                        <section className="about-section">
-                            <h2 className='mt-2 mb-2 text-xl font-semibold text-white'>overview </h2>
-                            <p> {state?.description} </p>
+    <button
+        className={activeSection === 'about' ? 'active' : ''}
+        onClick={() => setActiveSection('about')}
+    >
+        About
+    </button>
+    <button
+        className={activeSection === 'albums' ? 'active' : ''}
+        onClick={() => setActiveSection('albums')}
+    >
+        Albums
+    </button>
+    <button
+        className={activeSection === 'packages' ? 'active' : ''}
+        onClick={() => setActiveSection('packages')}
+    >
+        Packages
+    </button>
+    <button
+        className={activeSection === 'reviews' ? 'active' : ''}
+        onClick={() => setActiveSection('reviews')}
+    >
+        Reviews
+    </button>
+</div>
 
-                            <h2 className='mt-2 mb-2 text-xl font-semibold text-white'>services location</h2>
+
+                <div className="Content">
+                    <div className="About" style={{ display: activeSection === 'about' ? 'block' : 'none' }}>
+                        <section className="about-section">
+                            <h2 className="mt-2 mb-2 text-xl font-semibold text-white">Overview </h2>
+                            <p>{state?.description}</p>
+
+                            <h2 className="mt-2 mb-2 text-xl font-semibold text-white">Services Location</h2>
                             <button>{state?.location}</button>
 
-
-                            <h2 className='mt-2 mb-2 text-xl font-semibold text-white'>Language Known</h2>
+                            <h2 className="mt-2 mb-2 text-xl font-semibold text-white">Language Known</h2>
                             <div className="language-buttons">
                                 {state?.languages?.map((language, index) => (
                                     <button key={index}>{language}</button>
                                 ))}
                             </div>
 
-                            <h2 className='mt-2 mb-2 text-xl font-semibold text-white'>services</h2>
+                            <h2 className="mt-2 mb-2 text-xl font-semibold text-white">Services</h2>
                             <div className="services-buttons">
                                 {state?.services?.map((service, index) => (
                                     <button key={index}>{service}</button>
                                 ))}
                             </div>
                         </section>
-                        {role === "ADMIN" || data?.subscription?.status === "ACTIVE" ? (
-                            <button className='bg-green-600 text-white text-md rounded-md font-bold px-8 py-2 mt-3 hover:bg-green-500 transition-all ease-in-out duration-300'>
-                                Edit
-                            </button>
-                        ) : (
-                            <button className='bg-green-600 text-white text-md rounded-md font-bold px-8 py-2 mt-3 hover:bg-green-500 transition-all ease-in-out duration-300'>
-                                Book
-                            </button>
-                        )}
+                        {renderActionButton()}
+                    </div>
+                    <div className="Albums" style={{ display: activeSection === 'albums' ? 'block' : 'none' }}>
+                        <Albums />
+                    </div>
+                    <div className="Packages" style={{ display: activeSection === 'packages' ? 'block' : 'none' }}>
+                        <Packages />
+                    </div>
+                    <div className="Reviews" style={{ display: activeSection === 'reviews' ? 'block' : 'none' }}>
+                        <Reviews />
                     </div>
                 </div>
             </div>
         </HomeLayout>
-    )
-}
+    );
+};
 
 export default ClientDescription;

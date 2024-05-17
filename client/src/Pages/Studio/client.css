@@ -79,16 +79,43 @@
   .Tabs {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
-  }
+    align-items: center;
+}
 
-  .Tags span {
-    margin: 0 10px;
-  }
+.Tabs button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #fffffff2;
+    position: relative;
+}
 
-  .Tabs button {
-    margin: 0 10px;
-  }
+.Tabs button.active::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+}
+
+.Tabs button:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #333;
+}
+
+.Tabs button.active:hover::before {
+    background-color: transparent;
+}
+
 
   .Content {
     display: flex;

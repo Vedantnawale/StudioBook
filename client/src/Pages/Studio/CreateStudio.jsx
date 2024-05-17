@@ -13,6 +13,7 @@ function CreateStudio() {
     const navigate = useNavigate();
     const [showDropdown, setShowDropdown] = useState(false);
     const [filteredData, setFilteredData] = useState([]);
+
     const options = [
         { value: "Wedding", label: "Wedding" },
         { value: "Babies & Kids", label: "Babies & Kids" },
@@ -44,6 +45,36 @@ function CreateStudio() {
         { value: "Telugu", label: "Telugu" },
     ];
 
+    const albums = [
+        { value: "Wedding", label: "Wedding" },
+        { value: "Babies & Kids", label: "Babies & Kids" },
+        { value: "Special Occasion", label: "Special Occasion" },
+        { value: "Commercial", label: "Commercial" },
+        { value: "Corporate Events", label: "Corporate Events" },
+        { value: "Fashion & Portfolio", label: "Fashion & Portfolio" },
+        { value: "Nature", label: "Nature" },
+        { value: "Travel", label: "Travel" },
+    ];
+
+    const packages = [
+        { value: "Wedding Photo Shoot", label: "Wedding Photo Shoot" },
+        { value: "Babies & Kids Photo Shoot", label: "Babies & Kids Photo Shoot" },
+        { value: "Special Occasion Photo Shoot", label: "Special Occasion Photo Shoot" },
+        { value: "Corporate Events Photo Shoot", label: "Corporate Events Photo Shoot" },
+        { value: "Corporate Events", label: "Corporate Events" },
+        { value: "Fashion & Portfolio Photo Shoot", label: "Fashion & Portfolio Photo Shoot" },
+    ];
+
+    const packagesOptional = [
+        { value: "Video Shoot", label: "Video Shoot" },
+        { value: "Drone Shoot", label: "Drone Shoot" },
+        { value: "Softboxes, umbrellas, and reflectors", label: "Softboxes, umbrellas, and reflectors" },
+        { value: "Light stands and booms", label: "Light stands and booms" },
+        { value: "Green screen setup", label: "Green screen setup" },
+    ];
+
+
+
     const [userInput, setUserInput] = useState({
         title: "",
         price: "",
@@ -52,6 +83,9 @@ function CreateStudio() {
         specialities: [],
         services: [],
         languages: [],
+        albums: [],
+        packages: [],
+        packagesOptional: [],
         createdBy: "",
         mobileNumber: "",
         images: Array.from({ length: 4 }).fill(null),
@@ -118,6 +152,30 @@ function CreateStudio() {
         }));
     }
 
+    function handleAlbumChange(selectedOptions) {
+        const albums = selectedOptions.map(option => option.value);
+        setUserInput(prevState => ({
+            ...prevState,
+            albums: albums,
+        }));
+    }
+
+    function handlePackagesChange(selectedOptions) {
+        const packages = selectedOptions.map(option => option.value);
+        setUserInput(prevState => ({
+            ...prevState,
+            packages: packages,
+        }));
+    }
+    
+    function handlepackagesOptionalChange(selectedOptions) {
+        const packagesOptional = selectedOptions.map(option => option.value);
+        setUserInput(prevState => ({
+            ...prevState,
+            packagesOptional:packagesOptional,
+        }));
+    }
+
     async function onFormSubmit(e) {
         e.preventDefault();
 
@@ -134,6 +192,9 @@ function CreateStudio() {
                 specialities: [],
                 services: [],
                 languages: [],
+                albums: [],
+                packages: [],
+                packagesOptional: [],
                 location: "",
                 description: "",
                 createdBy: "",
@@ -237,6 +298,23 @@ function CreateStudio() {
                                     }}
                                 />
                             </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label className="text-lg font-semibold" htmlFor="description">
+                                    Description
+                                </label>
+                                <textarea
+                                    required
+                                    type="text"
+                                    name="description"
+                                    id="description"
+                                    placeholder="Description"
+                                    className="bg-transparent px-2 py-1 h-24 overflow-y-scroll resize-none border"
+                                    value={userInput.description}
+                                    onChange={handleUserInput}
+                                />
+                            </div>
+
                         </div>
 
                         <div className="flex flex-col gap-1">
@@ -348,20 +426,114 @@ function CreateStudio() {
                             </div>
 
                             <div className="flex flex-col gap-1">
-                                <label className="text-lg font-semibold" htmlFor="description">
-                                    Description
+                                <label className="text-lg font-semibold" htmlFor="price">
+                                    Albums
                                 </label>
-                                <textarea
+                                <ReactSelect
                                     required
-                                    type="text"
-                                    name="description"
-                                    id="description"
-                                    placeholder="Description"
-                                    className="bg-transparent px-2 py-1 h-24 overflow-y-scroll resize-none border"
-                                    value={userInput.description}
-                                    onChange={handleUserInput}
+                                    name="albums"
+                                    options={albums}
+                                    placeholder="Choose albums"
+                                    className="text-gray-600  border"
+                                    value={albums.filter(albums => userInput.albums.includes(albums.value))}
+                                    onChange={handleAlbumChange}
+                                    isMulti={true}
+                                    styles={{
+                                        control: (styles) => ({
+                                            ...styles,
+                                            backgroundColor: 'transparent',
+                                            border: 'none',
+                                        }),
+                                        placeholder: (styles) => ({
+                                            ...styles,
+                                            color: 'gray',
+                                        }),
+                                    }}
                                 />
                             </div>
+                            <div className="flex flex-col gap-1">
+                                <label className="text-lg font-semibold" htmlFor="price">
+                                    Packages
+                                </label>
+                                <ReactSelect
+                                    required
+                                    name="packages"
+                                    options={packages}
+                                    placeholder="Choose Packages"
+                                    className="text-gray-600  border"
+                                    value={packages.filter(packages => userInput.packages.includes(packages.value))}
+                                    onChange={handlePackagesChange}
+                                    isMulti={true}
+                                    styles={{
+                                        control: (styles) => ({
+                                            ...styles,
+                                            backgroundColor: 'transparent',
+                                            border: 'none',
+                                        }),
+                                        placeholder: (styles) => ({
+                                            ...styles,
+                                            color: 'gray',
+                                        }),
+                                    }}
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label className="text-lg font-semibold" htmlFor="price">
+                                Optional Packages
+                                </label>
+                                <ReactSelect
+                                    required
+                                    name="packagesOptional"
+                                    options={packagesOptional}
+                                    placeholder="Choose Albums"
+                                    className="text-gray-600  border"
+                                    value={packagesOptional.filter(packagesOptional => userInput.packagesOptional.includes(packagesOptional.value))}
+                                    onChange={handlepackagesOptionalChange}
+                                    isMulti={true}
+                                    styles={{
+                                        control: (styles) => ({
+                                            ...styles,
+                                            backgroundColor: 'transparent',
+                                            border: 'none',
+                                        }),
+                                        placeholder: (styles) => ({
+                                            ...styles,
+                                            color: 'gray',
+                                        }),
+                                    }}
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label className="text-lg font-semibold" htmlFor="languageKnown">
+                                    Language Known
+                                </label>
+                                <ReactSelect
+                                    required
+                                    name="languageKnown"
+                                    options={languages}
+                                    placeholder="Enter Languages that you understand"
+                                    className="text-gray-600 border"
+                                    value={languages.filter(language => userInput.languages.includes(language.value))}
+                                    onChange={handleLanguageChange}
+                                    isMulti={true}
+                                    styles={{
+                                        control: (styles) => ({
+                                            ...styles,
+                                            backgroundColor: 'transparent',
+                                            border: 'none',
+                                        }),
+                                        placeholder: (styles) => ({
+                                            ...styles,
+                                            color: 'gray',
+                                        }),
+                                    }}
+                                />
+                            </div>
+
+
+                            
                         </div>
                     </main>
 
