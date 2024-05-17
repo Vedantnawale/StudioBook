@@ -62,10 +62,11 @@ const Studioschema = new Schema({
         required: true,
     }],
 
-    mobileNumber: [{
+    mobileNumber: {
         type: Number,
-        required: [true, 'mobiile number is required']
-    }],
+        required: [true, 'mobiile number is required'],
+        maxLength: [10, 'Location should be less than 50']
+    },
     images: [
         {
             public_id: {

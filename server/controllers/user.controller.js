@@ -74,7 +74,7 @@ const register = async (req, res, next) => {
 
     user.password = undefined;
 
-    const token = await user.genrateJWTToken();
+    const token = await user.generateJWTToken();
 
     res.cookie('token', token, cookieOptions);
 
@@ -105,7 +105,7 @@ const login = async (req, res, next) => {
         }
 
 
-        const token = await user.genrateJWTToken();
+        const token = await user.generateJWTToken();
         user.password = undefined;
 
         res.cookie('token', token, cookieOptions);
