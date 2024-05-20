@@ -35,6 +35,7 @@ const createStudio = async (req, res, next) => {
             services,
             languages,
             packages,
+            mobileNumber,
             albums,
             packagesOptional,
             images: [],

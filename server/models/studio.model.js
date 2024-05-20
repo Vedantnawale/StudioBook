@@ -63,9 +63,14 @@ const Studioschema = new Schema({
     }],
 
     mobileNumber: {
-        type: Number,
-        required: [true, 'mobiile number is required'],
-        maxLength: [10, 'Location should be less than 50']
+        type: String,
+        required: [true, 'Mobile number is required'],
+        trim: true,
+        unique: true,
+        match: [
+            /^[6-9]\d{9}$/,
+            'Please fill in a valid Indian mobile number'
+        ]
     },
     images: [
         {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import HomeLayout from "../../Layouts/HomeLayout";
 import { createNewStudio } from "../../Redux/Slices/StudioSlice";
@@ -9,6 +9,7 @@ import data from "../../Components/city.json";
 import ReactSelect from "react-select";
 
 function CreateStudio() {
+    const userData = useSelector((state) => state?.auth?.data);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showDropdown, setShowDropdown] = useState(false);
@@ -86,8 +87,8 @@ function CreateStudio() {
         albums: [],
         packages: [],
         packagesOptional: [],
-        createdBy: "",
-        mobileNumber: "",
+        createdBy: userData?.fullName || "",
+        mobileNumber: userData?.mobileNumber || "",
         images: Array.from({ length: 4 }).fill(null),
         previewImages: Array.from({ length: 5 }).fill(null),
     });
@@ -197,8 +198,8 @@ function CreateStudio() {
                 packagesOptional: [],
                 location: "",
                 description: "",
-                createdBy: "",
-                mobileNumber: "",
+                createdBy: userData?.fullName || "",
+                mobileNumber: userData?.mobileNumber || "",
                 images: Array.from({ length: 4 }).fill(null),
                 previewImages: Array.from({ length: 5 }).fill(null),
             });
@@ -249,10 +250,11 @@ function CreateStudio() {
                                     type="text"
                                     name="createdBy"
                                     id="createdBy"
-                                    placeholder="Enter Studio Owner Name"
-                                    className="bg-transparent px-2 py-1 border"
+                                    placeholder={userInput.createdBy}
+                                    className="bg-transparent px-2 py-1 border text-gray-400"
                                     value={userInput.createdBy}
-                                    onChange={handleUserInput}
+                                    // onChange={handleUserInput}
+                                    disabled
                                 />
                             </div>
 
@@ -265,10 +267,11 @@ function CreateStudio() {
                                     type="phone"
                                     name="mobileNumber"
                                     id="mobileNumber"
-                                    placeholder="Enter Mobile Number"
-                                    className="bg-transparent px-2 py-1 border"
+                                    placeholder={userInput.mobileNumber}
+                                    className="bg-transparent px-2 py-1 border text-gray-400"
                                     value={userInput.mobileNumber}
-                                    onChange={handleUserInput}
+                                    // onChange={handleUserInput}
+                                    disabled
                                 />
                             </div>
 
@@ -504,36 +507,6 @@ function CreateStudio() {
                                     }}
                                 />
                             </div>
-
-                            <div className="flex flex-col gap-1">
-                                <label className="text-lg font-semibold" htmlFor="languageKnown">
-                                    Language Known
-                                </label>
-                                <ReactSelect
-                                    required
-                                    name="languageKnown"
-                                    options={languages}
-                                    placeholder="Enter Languages that you understand"
-                                    className="text-gray-600 border"
-                                    value={languages.filter(language => userInput.languages.includes(language.value))}
-                                    onChange={handleLanguageChange}
-                                    isMulti={true}
-                                    styles={{
-                                        control: (styles) => ({
-                                            ...styles,
-                                            backgroundColor: 'transparent',
-                                            border: 'none',
-                                        }),
-                                        placeholder: (styles) => ({
-                                            ...styles,
-                                            color: 'gray',
-                                        }),
-                                    }}
-                                />
-                            </div>
-
-
-                            
                         </div>
                     </main>
 

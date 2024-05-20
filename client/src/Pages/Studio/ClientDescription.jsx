@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import HomeLayout from '../../Layouts/HomeLayout';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './client.css';
 import Packages from './Packages';
@@ -13,7 +13,7 @@ const ClientDescription = () => {
     const navigate = useNavigate();
     const [activeSection, setActiveSection] = useState('about');
 
-    const Whatsapp = 'https://wa.me/1XXXXXXXXXX'
+    const Whatsapp = `https://wa.me/${state?.mobileNumber}`
 
     const renderActionButton = () => {
         const isAdmin = role === 'ADMIN';
@@ -56,7 +56,9 @@ const ClientDescription = () => {
                                 <p className="font-semibold">{state?.location}</p>
                                 <div className="contact-buttons">
                                     <button>Call Phone</button>
+                                    <Link to={Whatsapp}>
                                     <button>WhatsApp</button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

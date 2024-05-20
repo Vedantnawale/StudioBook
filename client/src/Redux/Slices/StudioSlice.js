@@ -1,11 +1,11 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { toast } from "react-hot-toast";
+
 import axiosInstance from "../../Helpers/axiosinstance.js";
 
 const initialState = {
-    studioData: [],
-    createdStudio: null, // Track if the admin has already created a studio
-};
+    studioData: []
+}
 
 export const getAllStudios = createAsyncThunk("/studio/get", async () => {
     try {
@@ -17,20 +17,13 @@ export const getAllStudios = createAsyncThunk("/studio/get", async () => {
         });
 
         return (await response).data.studios;
-    } catch(error) {
+    } catch (error) {
         toast.error(error?.response?.data?.message);
     }
-});  
+});
 
-export const createNewStudio = createAsyncThunk("/studio/create", async (data, { getState }) => {
+export const createNewStudio = createAsyncThunk("/studio/create", async (data) => {
     try {
-        const { createdStudio } = getState().studio; // Get the current state
-        // Check if admin has already created a studio
-        if (createdStudio) {
-            throw new Error("You already have a studio.");
-        }
-
-        // Studio creation logic
         let formData = new FormData();
         formData.append("title", data?.title);
         formData.append("location", data?.location);
@@ -47,7 +40,7 @@ export const createNewStudio = createAsyncThunk("/studio/create", async (data, {
         data.packagesOptional.forEach((packagesOptional) => formData.append("packagesOptional", packagesOptional));
         // formData.append("thumbnail", data?.images);
         data.images.forEach((image) => formData.append("images", image));
-        
+
         const response = axiosInstance.post("/studios", formData);
         toast.promise(response, {
             loading: "Creating new studio",
@@ -55,10 +48,10 @@ export const createNewStudio = createAsyncThunk("/studio/create", async (data, {
             error: "Failed to create Studio"
         });
 
-        return (await response).data;
+        return (await response).data
 
-    } catch(error) {
-        toast.error(error?.message || error?.response?.data?.message);
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
     }
 });
 
@@ -72,7 +65,7 @@ export const deleteStudio = createAsyncThunk("/studio/delete", async (id) => {
         });
 
         return (await response).data;
-    } catch(error) {
+    } catch (error) {
         toast.error(error?.response?.data?.message);
     }
 });
@@ -84,7 +77,7 @@ const studioSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllStudios.fulfilled, (state, action) => {
-                if(action.payload) {
+                if (action.payload) {
                     state.studioData = [...action.payload];
                 }
             })
@@ -95,6 +88,6 @@ const studioSlice = createSlice({
                 state.createdStudio = null; // Reset createdStudio when the studio is deleted
             });
     }
-});
+})
 
 export default studioSlice.reducer;
