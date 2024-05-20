@@ -71,10 +71,17 @@ const Signup = () => {
             return;
         }
 
+        // checking mobile Number validation
+        if (!signupData.mobileNumber.match(/^[6-9]\d{9}$/)) {
+            toast.error("Enter Valid Mobile Number")
+            return;
+        }
+
         const formData = new FormData();
 
         formData.append("fullName", signupData.fullName);
         formData.append("email", signupData.email);
+        formData.append("mobileNumber", signupData.mobileNumber);
         formData.append("password", signupData.password);
         formData.append("avatar", signupData.avatar);
         formData.append("role", signupData.role); // Append selected role to the form data
@@ -89,6 +96,7 @@ const Signup = () => {
         setSignupData({
             fullName: "",
             email: "",
+            mobileNumber: "",
             password: "",
             role: "",
             avatar: ""
@@ -100,7 +108,7 @@ const Signup = () => {
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                    <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <div className="p-6 space-y-2 md:space-y-6 sm:p-8">
                         <form noValidate onSubmit={createNewAccount} className="space-y-4 md:space-y-6">
                             <h1 className="text-xl flex items-center justify-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                                 Registration Page
@@ -143,6 +151,20 @@ const Signup = () => {
                                     placeholder="name@company.com"
                                     onChange={handleUserInput}
                                     value={signupData.email}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            </div>
+
+                            <div>
+                                <label htmlFor="mobileNumber" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Your Whatsapp Number</label>
+                                <input
+                                    type="tel"
+                                    required
+                                    name="mobileNumber"
+                                    id="mobileNumber"
+                                    placeholder="8888888888"
+                                    maxLength={10}
+                                    onChange={handleUserInput}
+                                    value={signupData.mobileNumber}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             </div>
                             <div>

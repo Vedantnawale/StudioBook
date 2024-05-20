@@ -13,6 +13,8 @@ const ClientDescription = () => {
     const navigate = useNavigate();
     const [activeSection, setActiveSection] = useState('about');
 
+    const Whatsapp = 'https://wa.me/1XXXXXXXXXX'
+
     const renderActionButton = () => {
         const isAdmin = role === 'ADMIN';
         const isActiveSubscription = data?.subscription?.status === 'ACTIVE';

@@ -23,6 +23,18 @@ const userSchema = new Schema({
             'Please fill in a valid email address'
         ]
     },
+    
+    mobileNumber: {
+        type: String,
+        required: [true, 'Mobile number is required'],
+        trim: true,
+        unique: true,
+        match: [
+            /^[6-9]\d{9}$/,
+            'Please fill in a valid Indian mobile number'
+        ]
+    },
+    
     password: {
         type: String,
         required: [true, 'Password is required'],
