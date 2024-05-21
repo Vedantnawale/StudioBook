@@ -83,6 +83,7 @@ const studioSlice = createSlice({
             })
             .addCase(createNewStudio.fulfilled, (state, action) => {
                 state.createdStudio = action.payload;
+                state.studioData.push(action.payload)
             })
             .addCase(deleteStudio.fulfilled, (state) => {
                 state.createdStudio = null; // Reset createdStudio when the studio is deleted
