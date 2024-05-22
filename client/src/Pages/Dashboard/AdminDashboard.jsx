@@ -1,5 +1,14 @@
-import { ArcElement, BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from "chart.js";
-import { useEffect } from "react";
+import {
+    ArcElement,
+    BarElement,
+    CategoryScale,
+    Chart as ChartJS,
+    Legend,
+    LinearScale,
+    Title,
+    Tooltip
+} from "chart.js";
+import { useEffect, useState } from "react";
 import { Bar, Pie } from "react-chartjs-2";
 import { BsCollectionPlayFill, BsTrash } from "react-icons/bs";
 import { FaUsers } from "react-icons/fa";
@@ -13,30 +22,59 @@ import { deleteStudio, getAllStudios } from "../../Redux/Slices/StudioSlice";
 import { getPaymentRecord } from "../../Redux/Slices/RazorpaySlice";
 import { getStatsData } from "../../Redux/Slices/StatSlice";
 
-ChartJS.register(ArcElement, BarElement, CategoryScale, Legend, LinearScale, Title, Tooltip);
+ChartJS.register(
+    ArcElement,
+    BarElement,
+    CategoryScale,
+    Legend,
+    LinearScale,
+    Title,
+    Tooltip
+);
 
 function AdminDashboard() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
-    const { viewCounts, subscribedCount } = useSelector((state) => state.stat);
-    const { allPayments, monthlySalesRecord } = useSelector((state) => state.razorpay);
+    const { allUsersCount, viewCounts, subscribedCount } = useSelector(
+        (state) => state.stat
+    );
+    const { allPayments, monthlySalesRecord } = useSelector(
+        (state) => state.razorpay
+    );
+    const studioData = useSelector((state) => state.studio);
+
+    const adminId = useSelector((state) => state.auth.mobileNumber); // Assuming admin's user ID is stored here
 
     const userData = {
-        labels: ["View Counts", "Subscribed Users"],
+        labels: ["View Counts", "Subscribed Users", "All Users"],
         datasets: [
             {
                 label: "User Details",
-                data: [viewCounts, subscribedCount],
-                backgroundColor: ["yellow", "green"],
+                data: [viewCounts, subscribedCount, allUsersCount],
+                backgroundColor: ["yellow", "green", "red"],
                 borderWidth: 1,
-                borderColor: ["yellow", "green"]
-            },
+                borderColor: ["yellow", "green", "red"]
+            }
         ]
     };
 
     const salesData = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+        ],
         datasets: [
             {
                 label: "Sales / Month",
@@ -48,7 +86,9 @@ function AdminDashboard() {
         ]
     };
 
-    const myStudios = useSelector((state) => state?.studios?.studioData);
+    const myStudios = studioData?.studioData?.filter(
+        (studio) => studio.mobileNumber !== adminId
+    ); // Filter studios by admin ID
 
     async function onStudioDelete(id) {
         if (window.confirm("Are you sure you want to delete the studio? ")) {
@@ -64,6 +104,7 @@ function AdminDashboard() {
             await dispatch(getAllStudios());
             await dispatch(getStatsData());
             await dispatch(getPaymentRecord());
+            setLoading(false);
         })();
     }, [dispatch]);
 
@@ -73,6 +114,17 @@ function AdminDashboard() {
     // Ensure to handle the case when the current month is January
     const lastMonthSales = lastMonthIndex >= 0 ? monthlySalesRecord[lastMonthIndex] : 0;
 
+    if (loading) {
+        return (
+            <HomeLayout>
+                <div className="min-h-[90vh] pt-5 flex flex-col flex-wrap gap-10 text-white">
+                    <h1 className="text-center text-5xl font-semibold text-yellow-500">
+                        Loading...
+                    </h1>
+                </div>
+            </HomeLayout>
+        );
+    }
 
     return (
         <HomeLayout>
@@ -101,6 +153,13 @@ function AdminDashboard() {
                                     <h3 className="text-4xl font-bold">{subscribedCount}</h3>
                                 </div>
                                 <FaUsers className="text-green-500 text-5xl" />
+                            </div>
+                            <div className="flex items-center justify-between p-5 gap-5 rounded-md shadow-md">
+                                <div className="flex flex-col items-center">
+                                    <p className="font-semibold">Total Users</p>
+                                    <h3 className="text-4xl font-bold">{allUsersCount}</h3>
+                                </div>
+                                <FaUsers className="text-red-500 text-5xl" />
                             </div>
                         </div>
                     </div>
@@ -165,7 +224,7 @@ function AdminDashboard() {
                                     <td className="flex items-center gap-4">
                                         <button
                                             className="bg-green-500 hover:bg-green-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold"
-                                            onClick={() => navigate("/course/displaylectures", { state: { ...studio } })}
+                                            onClick={() => navigate("/studio/description", { state: { ...studio } })}
                                         >
                                             <BsCollectionPlayFill />
                                         </button>

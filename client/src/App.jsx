@@ -18,6 +18,7 @@ import Checkout from './Pages/Payment/Checkout';
 import CheckoutSuccess from './Pages/Payment/CheckoutSuccess';
 import CheckoutFailure from './Pages/Payment/CheckoutFailure'
 import AdminDashboard from './Pages/Dashboard/AdminDashboard'
+import EditStudio from './Pages/Studio/EditStudio'
 
 function App() {
 
@@ -46,6 +47,8 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
           <Route path="/studio/create" element={<CreateStudio />}></Route>
           <Route path="/admin/dashboard" element={<AdminDashboard />}></Route>
+          <Route path="/admin/dashboard/edit" element={<EditStudio />}></Route>
+          <Route path="/studio/edit" element={<EditStudio />}></Route>
         </Route>
 
         <Route element={<RequireAuth allowedRoles={["ADMIN", "USER"]} />}>

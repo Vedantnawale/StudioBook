@@ -55,6 +55,22 @@ export const createNewStudio = createAsyncThunk("/studio/create", async (data) =
     }
 });
 
+export const updateStudio = createAsyncThunk("/admin/update/studio", async (data) => {
+    try {
+        const res = axiosInstance.put(`admin/update/${data[0]}`, data[1]);
+        toast.promise(res, {
+            loading: "Wait! profile update in progress...",
+            success: (data) => {
+                return data?.data?.message;
+            },
+            error: "Failed to update profile"
+        });
+        return (await res).data;
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
+})
+
 export const deleteStudio = createAsyncThunk("/studio/delete", async (id) => {
     try {
         const response = axiosInstance.delete(`/studios/${id}`);

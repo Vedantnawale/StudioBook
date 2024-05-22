@@ -9,20 +9,24 @@ import Reviews from './Reviews';
 
 const ClientDescription = () => {
     const { state } = useLocation();
-    const { role, data } = useSelector((state) => state.auth);
+    const { role, data: authData } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const [activeSection, setActiveSection] = useState('about');
+    const userData = useSelector((state) => state?.auth?.data);
 
-    const Whatsapp = `https://wa.me/${state?.mobileNumber}`
+    const Whatsapp = `https://wa.me/${state?.mobileNumber}`;
+
+    console.log( state?.mobileNumber);
+    console.log( userData?.mobileNumber);
 
     const renderActionButton = () => {
         const isAdmin = role === 'ADMIN';
-        const isActiveSubscription = data?.subscription?.status === 'ACTIVE';
-        const buttonText = isAdmin || isActiveSubscription ? 'Edit' : 'Book';
+        // const isActiveSubscription = authData?.subscription?.status === 'ACTIVE';
+        const buttonText = isAdmin && state?.mobileNumber === userData?.mobileNumber ? 'Edit' : 'Book';
         
         const handleClick = () => {
-            if (isAdmin) {
-                navigate('/edit');  // Replace '/edit' with the actual route for the edit page
+            if (isAdmin && state?.mobileNumber === userData?.mobileNumber) {
+                navigate('/studio/edit');  // Replace '/studio/edit' with the actual route for the edit page
             } else {
                 navigate('/checkout');  // Replace '/checkout' with the actual route for the checkout page
             }
@@ -57,7 +61,7 @@ const ClientDescription = () => {
                                 <div className="contact-buttons">
                                     <button>Call Phone</button>
                                     <Link to={Whatsapp}>
-                                    <button>WhatsApp</button>
+                                        <button>WhatsApp</button>
                                     </Link>
                                 </div>
                             </div>

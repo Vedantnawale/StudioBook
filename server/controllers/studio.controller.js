@@ -25,6 +25,12 @@ const createStudio = async (req, res, next) => {
             return next(new AppError('All fields are required', 400))
         }
 
+        const userExists = await Studio.findOne({ mobileNumber });
+
+        if (userExists) {
+            return next(new AppError('Your studio is already exists', 400))
+        }
+
         let studio = await Studio.create({
             title,
             location,
@@ -93,16 +99,8 @@ const updateStudio = async (req, res, next) => {
     try {
 
         const { id } = req.params;
-        let { thumbnail } = req.body
-        const studio = await Studio.findByIdAndUpdate(
-            id,
-            {
-                $set: req.body
-            },
-            {
-                runValidators: true
-            }
-        );
+        const { title, specialities, services, description, price, albums, packages } = req.body;
+        const studio = await Studio.findById(id)
 
         if (!studio) {
             return next(
@@ -110,26 +108,33 @@ const updateStudio = async (req, res, next) => {
             )
         }
 
-        if (req.file) {
-            try {
-                const result = await cloudinary.v2.uploader.upload(req.file.path, {
-                    folder: 'lms'
-                });
-
-                if (result) {
-                    studio.thumbnail.public_id = result.public_id;
-                    studio.thumbnail.secure_url = result.secure_url;
-                }
-
-                fs.rm(`uploads/${req.file.filename}`)
-            }
-            catch (error) {
-                return next(
-                    new AppError(error.message, 500)
-                )
-            }
+        if (title) {
+            studio.title = title;
         }
-        
+
+        if(specialities){
+            studio.specialities = specialities;
+        }
+
+        if(services){
+            studio.services = services;
+        }
+
+        if(description){
+            studio.description = description;
+        }
+
+        if(price){
+            studio.price = price;
+        }
+
+        if(albums){
+            studio.albums = albums;
+        }
+
+        if(packages){
+            studio.packages = packages;
+        }
 
         res.status(200).json({
             success: true,

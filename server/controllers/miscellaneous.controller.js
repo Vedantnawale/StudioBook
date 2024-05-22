@@ -55,7 +55,7 @@ export const userStats = async (req, res, next) => {
       },
     ]);
 
-    const viewCounts = totalViewCounts[0]?.totalViews || 0;
+    const viewCounts = totalViewCounts.length > 0 ? totalViewCounts[0].totalViews : 0;
 
     res.status(200).json({
       success: true,

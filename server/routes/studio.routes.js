@@ -18,7 +18,6 @@ router.route('/:id')
 .put(
     isLoggedIn,
     authorizedRoles('ADMIN'),
-    upload.single('thumbnail'),
     updateStudio)
 .delete(
     isLoggedIn,
