@@ -8,6 +8,7 @@ import errorMiddleware from './middlewares/error.middleware.js';
 import studioRoutes from './routes/studio.routes.js'
 import paymentRoutes from './routes/payment.routes.js'
 import miscRoutes from './routes/miscellaneous.routes.js';
+import reviewRoutes from './routes/review.routes.js'
 
 
 config();
@@ -35,6 +36,7 @@ app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/studios', studioRoutes)
 app.use('/api/v1/payments', paymentRoutes)
 app.use('/api/v1', miscRoutes);
+app.use('/api/v1/reviews', reviewRoutes);
 
 // agar user koi random url dena chahta hai to
 app.all('*', (req, res) => {

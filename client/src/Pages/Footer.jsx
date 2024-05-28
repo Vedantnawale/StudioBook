@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Logo from '../Logo'
+import Logo from './Logo'
 
 function Footer() {
     return (
@@ -110,7 +110,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-slate-100 hover:text-gray-700"
-                                        to="https://developers.google.com/tag-platform/security/concepts/cookies#:~:text=Google%20tags%20set%20and%20read,uses%20cookies%20in%20various%20ways."
+                                        to="https://policies.google.com/terms?hl=en-US"
                                     >
                                         Terms &amp; Conditions
                                     </Link>

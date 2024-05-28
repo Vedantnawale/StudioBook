@@ -16,9 +16,6 @@ const ClientDescription = () => {
 
     const Whatsapp = `https://wa.me/${state?.mobileNumber}`;
 
-    console.log( state?.mobileNumber);
-    console.log( userData?.mobileNumber);
-
     const renderActionButton = () => {
         const isAdmin = role === 'ADMIN';
         // const isActiveSubscription = authData?.subscription?.status === 'ACTIVE';
