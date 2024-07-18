@@ -24,9 +24,9 @@ const Homepage = () => {
       <Trend />
       <Cards />
       <Scrollbar />
-      <Babies />
-      <Ocassion />
-      <Nature />
+      {/* <Babies /> */}
+      {/* <Ocassion /> */}
+      {/* <Nature /> */}
       <Reviews />
       <Studio />
     </HomeLayout>

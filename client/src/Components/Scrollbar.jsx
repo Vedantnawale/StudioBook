@@ -43,7 +43,7 @@ const Scrollbar = () => {
 
     return (
         <div className='mt-5 ml-10 mr-10'>
-            <h1 className='text-4xl madimi-one-regular mt-6 mb-6 ml-3 py-3 text-white'>Featured Wedding Photography</h1>
+            <h1 className='text-4xl madimi-one-regular mt-10 mb-6 ml-3 py-3 text-white'>Featured Photography</h1>
             <div className="overflow-x-auto w-full flex  bg-white">
                 <div className="flex gap-2 mt-3 ml-5 mr-5 ">
                     {data.map((d) => (
