@@ -10,6 +10,7 @@ const Reviews = ({ totalStars = 5 }) => {
   const reviews = useSelector((state) => state.reviews.reviews);
   const reviewStatus = useSelector((state) => state.reviews.status);
   const error = useSelector((state) => state.reviews.error);
+  const userData = useSelector((state) => state?.auth?.data);
 
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState('');
@@ -73,10 +74,10 @@ const Reviews = ({ totalStars = 5 }) => {
               <div className="flex items-center">
                 <img
                   className="w-12 h-12 rounded-full border border-gray-300"
-                  src={reviews?.avatar?.secure_url}
+                  src={userData?.avatar?.secure_url}
                   alt="user profile"
                 />
-                <h3 className='ml-4 font-bold text-gray-600'>{reviews?.fullName}</h3>
+                <h3 className='ml-4 font-bold text-gray-600'>{userData?.fullName}</h3>
               </div>
               <div className="flex mb-2">
                 {Array.from({ length: totalStars }, (v, i) => (
